@@ -7,6 +7,11 @@ const fireConfig = {
     messagingSenderId: "1020750963599"
   };
 
+  const mongoConfig = {
+    uri: "mongodb://<dbuser>:<dbpassword>@ds119503.mlab.com:19503/commitkitties-db"
+  };
+
 export default {
-  fireConfig
+  fireConfig,
+  mongoConfig
 };

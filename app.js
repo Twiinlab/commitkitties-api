@@ -34,14 +34,18 @@
 
 import express from 'express';
 import cors from 'cors';
-import route from './routes/index';
+import api from './routes/api';
+import metrics from './routes/metrics';
 import methodOverride from 'method-override';
 
 // Set up the express app
 const app = express()
 app.use(cors({ origin: true }));
 app.use(express.json());
-app.use('/api', route);
+
+app.use('/api', api);
+app.use('/metrics', metrics);
+
 app.use(methodOverride())
 app.use((err, req, res, next) => {
     res.status(400).json({
