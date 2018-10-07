@@ -15,19 +15,43 @@
 
 'use strict';
 
-// [START gae_node_request_example]
-const express = require('express');
+// // [START gae_node_request_example]
+// const express = require('express');
 
-const app = express();
+// const app = express();
 
-app.get('/', (req, res) => {
-  res.status(200).send('Hello, world2!').end();
+// app.get('/', (req, res) => {
+//   res.status(200).send('Hello, world2!').end();
+// });
+
+// // Start the server
+// const PORT = process.env.PORT || 8080;
+// app.listen(PORT, () => {
+//   console.log(`App listening on port ${PORT}`);
+//   console.log('Press Ctrl+C to quit.');
+// });
+// // [END gae_node_request_example]
+
+import express from 'express';
+import cors from 'cors';
+import route from './routes/index';
+import methodOverride from 'method-override';
+
+// Set up the express app
+const app = express()
+app.use(cors({ origin: true }));
+app.use(express.json());
+app.use('/api', route);
+app.use(methodOverride())
+app.use((err, req, res, next) => {
+    res.status(400).json({
+        error: err.message });
 });
 
-// Start the server
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
-  console.log('Press Ctrl+C to quit.');
+const server = app.listen(process.env.PORT || 8080, function () {
+
+  const host = server.address().address;
+  const port = server.address().port;
+
+  console.log("Example app listening at http://%s:%s", host, port);
 });
-// [END gae_node_request_example]
