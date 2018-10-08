@@ -35,7 +35,7 @@
 import express from 'express';
 import cors from 'cors';
 import api from './routes/api';
-import metrics from './routes/metrics';
+import kpis from './routes/kpis';
 import methodOverride from 'method-override';
 
 // Set up the express app
@@ -44,7 +44,7 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 
 app.use('/api', api);
-app.use('/metrics', metrics);
+app.use('/kpis', kpis);
 
 app.use(methodOverride())
 app.use((err, req, res, next) => {

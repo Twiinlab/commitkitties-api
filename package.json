@@ -29,7 +29,8 @@
     "express": "^4.16.3",
     "firebase": "^5.5.2",
     "firebase-admin": "^6.0.0",
-    "method-override": "^3.0.0"
+    "method-override": "^3.0.0",
+    "mongodb": "^3.1.6"
   },
   "devDependencies": {
     "@google-cloud/nodejs-repo-tools": "^2.3.0",

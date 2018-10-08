@@ -8,7 +8,7 @@ const fireConfig = {
   };
 
   const mongoConfig = {
-    uri: "mongodb://<dbuser>:<dbpassword>@ds119503.mlab.com:19503/commitkitties-db"
+    uri: "mongodb://commitkittiesadmin:commitkitties2018@ds119503.mlab.com:19503/commitkitties-db"
   };
 
 export default {
