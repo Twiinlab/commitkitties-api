@@ -6,11 +6,12 @@ if (!firebase.apps.length) {
     firebase.initializeApp(config.fireConfig);
 }
 const db = firebase.firestore();
+db.settings({ timestampsInSnapshots: true});
 
 const router = Router()
 router.get('/', async (req, res, next) => {
     try {
-        const noteSnapshot = await db.collection('notes').get();
+        const noteSnapshot = await db.collection('users').get();
         const notes = [];
         noteSnapshot.forEach((doc) => {
             notes.push({
@@ -28,7 +29,7 @@ router.get('/:id', async(req, res, next) => {
     try {
         const id = req.params.id;
         if (!id) throw new Error('id is blank');
-        const note = await db.collection('notes').doc(id).get();
+        const note = await db.collection('users').doc(id).get();
         if (!note.exists) {
             throw new Error('note does not exists');
         }
@@ -46,7 +47,7 @@ router.post('/', async (req, res, next) => {
         const text = req.body.text;
         if (!text) throw new Error('Text is blank');
         const data = { text };
-        const ref = await db.collection('notes').add(data);
+        const ref = await db.collection('users').add(data);
         res.json({
             id: ref.id,
             data
@@ -63,7 +64,7 @@ router.put('/:id', async (req, res, next) => {
         if (!id) throw new Error('id is blank');
         if (!text) throw new Error('Text is blank');
         const data = { text };
-        const ref = await db.collection('notes').doc(id).set(data, { merge: true });
+        const ref = await db.collection('users').doc(id).set(data, { merge: true });
         res.json({
             id,
             data
@@ -77,7 +78,7 @@ router.delete('/:id', async (req, res, next) => {
     try {
         const id = req.params.id;
         if (!id) throw new Error('id is blank');
-        await db.collection('notes').doc(id).delete();
+        await db.collection('users').doc(id).delete();
         res.json({
             id
         });
