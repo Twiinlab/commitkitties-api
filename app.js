@@ -35,6 +35,7 @@
 import express from 'express';
 import cors from 'cors';
 import kitties from './routes/kitties';
+import contracts from './routes/contracts';
 import users from './routes/users';
 import kpis from './routes/kpis';
 import methodOverride from 'method-override';
@@ -45,6 +46,7 @@ app.use(cors({ origin: true }));
 app.use(express.json());
 
 app.use('/api/kitty', kitties);
+app.use('/api/contract', contracts);
 app.use('/api/user', users);
 app.use('/kpis', kpis);
 
