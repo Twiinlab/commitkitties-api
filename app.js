@@ -45,9 +45,9 @@ const app = express()
 app.use(cors({ origin: true }));
 app.use(express.json());
 
-app.use('/api/kitty', kitties);
-app.use('/api/contract', contracts);
-app.use('/api/user', users);
+app.use('/api/kitties', kitties);
+app.use('/api/contracts', contracts);
+app.use('/api/users', users);
 app.use('/kpis', kpis);
 
 app.use(methodOverride())
