@@ -1,6 +1,7 @@
 import express, { Router, Request } from 'express';
 import firebase from 'firebase';
-import config  from '../config';
+import config  from '../../config';
+
 
 if (!firebase.apps.length) {
     firebase.initializeApp(config.fireConfig);
@@ -11,7 +12,7 @@ db.settings({ timestampsInSnapshots: true});
 const router = Router()
 router.get('/', async (req, res, next) => {
     try {
-        const noteSnapshot = await db.collection('kitties').get();
+        const noteSnapshot = await db.collection('contracts').get();
         const notes = [];
         noteSnapshot.forEach((doc) => {
             notes.push({
@@ -29,7 +30,7 @@ router.get('/:id', async(req, res, next) => {
     try {
         const id = req.params.id;
         if (!id) throw new Error('id is blank');
-        const note = await db.collection('kitties').doc(id).get();
+        const note = await db.collection('contracts').doc(id).get();
         if (!note.exists) {
             throw new Error('note does not exists');
         }
@@ -47,7 +48,7 @@ router.post('/', async (req, res, next) => {
         const data = req.body;
         if (!data) throw new Error('Body is blank');
         
-        const ref = await db.collection("kitties").doc(data.id).set(data);
+        const ref = await db.collection("contracts").doc(data.id).set(data);
 
         res.json({
             id: data.id,
@@ -65,7 +66,7 @@ router.put('/:id', async (req, res, next) => {
         if (!id) throw new Error('id is blank');
         if (!text) throw new Error('Text is blank');
         const data = { text };
-        const ref = await db.collection('kitties').doc(id).set(data, { merge: true });
+        const ref = await db.collection('contracts').doc(id).set(data, { merge: true });
         res.json({
             id,
             data
@@ -79,7 +80,7 @@ router.delete('/:id', async (req, res, next) => {
     try {
         const id = req.params.id;
         if (!id) throw new Error('id is blank');
-        await db.collection('kitties').doc(id).delete();
+        await db.collection('contracts').doc(id).delete();
         res.json({
             id
         });

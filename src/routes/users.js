@@ -1,6 +1,6 @@
 import express, { Router, Request } from 'express';
 import firebase from 'firebase';
-import config  from '../config';
+import config  from '../../config';
 
 if (!firebase.apps.length) {
     firebase.initializeApp(config.fireConfig);

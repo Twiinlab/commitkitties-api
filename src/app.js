@@ -32,13 +32,15 @@
 // });
 // // [END gae_node_request_example]
 
+import methodOverride from 'method-override';
 import express from 'express';
 import cors from 'cors';
 import kitties from './routes/kitties';
 import contracts from './routes/contracts';
 import users from './routes/users';
 import kpis from './routes/kpis';
-import methodOverride from 'method-override';
+import listener from './listener';
+
 
 // Set up the express app
 const app = express()
@@ -52,6 +54,7 @@ app.use('/kpis', kpis);
 
 app.use(methodOverride())
 app.use((err, req, res, next) => {
+    console.log("error: ", err.message );
     res.status(400).json({
         error: err.message });
 });
@@ -63,3 +66,8 @@ const server = app.listen(process.env.PORT || 8080, function () {
 
   console.log("Example app listening at http://%s:%s", host, port);
 });
+
+
+listener.watchContract().then(function(){
+  console.log('Listening KittyCore Events')
+})

@@ -1,4 +1,4 @@
-import config  from '../config'
+import config  from '../../config';
 import { Router } from 'express'
 import { MongoClient,ObjectID } from 'mongodb'
 
