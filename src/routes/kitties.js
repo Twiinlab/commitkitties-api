@@ -1,7 +1,7 @@
 import express, { Router, Request } from 'express';
 import firebase from 'firebase';
 import config  from '../../config';
-import contracts from '../utils/contracts';
+import * as contracts from '../utils/contracts';
 
 if (!firebase.apps.length) {
     firebase.initializeApp(config.fireConfig);

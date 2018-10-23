@@ -23,16 +23,15 @@ const db = firebase.firestore();
 db.settings({ timestampsInSnapshots: true});
 
 
-async function getContract(contractName) {
+export const getContract = async (contractName) => {
     const metaContract = await db.collection('contracts').doc(contractName).get();
     if (!metaContract.exists) {
         throw new Error(`${contractName} does not exists`);
     }
     return new web3.eth.Contract(metaContract.data().abi, metaContract.data().address);
 }
-module.exports.getContract = getContract;
 
-module.exports.getKittiesById = async (id) => {
+export const getKittiesById = async (id) => {
   const contract = await getContract('KittyCore');
   try {
       return contract.methods.getKitty(id).call();

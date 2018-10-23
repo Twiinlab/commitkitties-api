@@ -1,6 +1,6 @@
 'use strict';
 
-import contracts  from '../utils/contracts';
+import * as contracts from '../utils/contracts.js';
 import config  from '../../config';
 
 module.exports.watchContract = async () => {
