@@ -14,6 +14,7 @@
   },
   "scripts": {
     "deploy": "gcloud app deploy",
+    "start:pro": "babel-node src/app.js",
     "start": "babel-node --inspect-brk=9229 src/app.js",
     "lint": "repo-tools lint",
     "pretest": "npm run lint",

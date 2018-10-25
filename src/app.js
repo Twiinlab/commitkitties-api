@@ -55,8 +55,7 @@ app.use('/kpis', kpis);
 app.use(methodOverride())
 app.use((err, req, res, next) => {
     console.log("error: ", err.message );
-    res.status(400).json({
-        error: err.message });
+    res.status(400).json({ error: err.message });
 });
 
 const server = app.listen(process.env.PORT || 8080, function () {

@@ -31,6 +31,10 @@ export const getContract = async (contractName) => {
     return new web3.eth.Contract(metaContract.data().abi, metaContract.data().address);
 }
 
+export const createAccount = function() {
+    return web3.eth.accounts.create();
+}
+
 export const getKittiesById = async (id) => {
   const contract = await getContract('KittyCore');
   try {

@@ -1,6 +1,8 @@
 import express, { Router, Request } from 'express';
 import firebase from 'firebase';
 import config  from '../../config';
+import * as contracts from '../utils/contracts';
+
 
 if (!firebase.apps.length) {
     firebase.initializeApp(config.fireConfig);
@@ -44,13 +46,20 @@ router.get('/:id', async(req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        const text = req.body.text;
-        if (!text) throw new Error('Text is blank');
-        const data = { text };
-        const ref = await db.collection('users').add(data);
+        debugger;
+        const user = req.body;
+        if (!user) throw new Error('User is blank');
+
+        const { address, privateKey } = contracts.createAccount();
+        user.data.wallet = { address, privateKey };
+
+        
+        await db.collection('users').doc(user.id).set(user.data);
+        //send ethereum to account
+
         res.json({
-            id: ref.id,
-            data
+            id: user.id,
+            data: user.data
         });
     } catch(e) {
         next(e);
