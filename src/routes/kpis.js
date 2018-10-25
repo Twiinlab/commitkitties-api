@@ -4,7 +4,7 @@ import { MongoClient,ObjectID } from 'mongodb'
 
 const router = Router()
 
-MongoClient.connect(config.mongoConfig.uri, (err, db) => {
+MongoClient.connect(config.mongo.uri, (err, db) => {
 
     if (err) return console.log(err)
     let dbase = db.db("commitkitties-db");

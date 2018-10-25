@@ -39,7 +39,8 @@ import kitties from './routes/kitties';
 import contracts from './routes/contracts';
 import users from './routes/users';
 import kpis from './routes/kpis';
-import listener from './listener';
+import * as listener from './listener';
+import * as contractsUtils from './utils/contracts';
 
 
 // Set up the express app
@@ -70,3 +71,5 @@ const server = app.listen(process.env.PORT || 8080, function () {
 listener.watchContract().then(function(){
   console.log('Listening KittyCore Events')
 })
+
+console.log('Main account', JSON.stringify(contractsUtils.getMainAccount()));

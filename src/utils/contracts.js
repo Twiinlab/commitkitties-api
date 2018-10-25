@@ -1,9 +1,15 @@
 
 import firebase from 'firebase';
 import Web3 from 'web3';
+import Tx from 'ethereumjs-tx';
+import bip39 from 'bip39';
+import hdkey from 'ethereumjs-wallet/hdkey';
+import wallet from 'ethereumjs-wallet';
+
 import config  from '../../config';
 
 let web3 = undefined;
+let mainAccount;
 
 if (typeof web3 !== 'undefined') {
     web3 = new Web3(web3.currentProvider);
@@ -17,7 +23,7 @@ if (typeof web3 !== 'undefined') {
 }
 
 if (!firebase.apps.length) {
-    firebase.initializeApp(config.fireConfig);
+    firebase.initializeApp(config.firebase);
 }
 const db = firebase.firestore();
 db.settings({ timestampsInSnapshots: true});
@@ -43,4 +49,51 @@ export const getKittiesById = async (id) => {
       debugger;
       console.log(error);
   }
+}
+
+export const getMainAccount = () => {
+
+    if (!mainAccount){
+      const seed = bip39.mnemonicToSeed(config.network.ganache.mnemonic);
+      const hdk = hdkey.fromMasterSeed(seed);
+      const addr_node = hdk.derivePath("m/44'/60'/0'/0/0");
+      const address = addr_node.getWallet().getAddressString();
+      const key = addr_node.getWallet().getPrivateKey();
+      mainAccount = { address, key };
+    }
+
+    return mainAccount;
+}
+
+export const fillAccount = async (toAddress) => {
+  try {
+    const { address, key } = getMainAccount();
+    var gasPrice = await web3.eth.getGasPrice(); //1; //2;//or get with web3.eth.gasPrice
+    var gasLimit = 3000000;
+
+    var amountToSend = "0.1"; //ethers //"0.00192823123348952";
+    var nonce = await web3.eth.getTransactionCount(address); //211;
+
+    var rawTransaction = {
+        "from": address,
+        "nonce": web3.utils.toHex(nonce),
+        "gasPrice": web3.utils.toHex(gasPrice), //web3.utils.toHex(gasPrice * 1e9),
+        "gasLimit": web3.utils.toHex(gasLimit),
+        "value": web3.utils.toHex( web3.utils.toWei(amountToSend, 'ether') ),
+        "to": toAddress,
+        "chainId": 4 //rinkeby //remember to change this
+      };
+
+    // var privKey = new Buffer(key, 'hex');
+    var tx = new Tx(rawTransaction);
+
+    tx.sign(key);
+    var serializedTx = tx.serialize();
+
+    return await web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'));;
+
+  } catch (error) {
+    console.error(error);
+  }
+
 }

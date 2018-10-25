@@ -5,7 +5,7 @@ import * as contracts from '../utils/contracts';
 
 
 if (!firebase.apps.length) {
-    firebase.initializeApp(config.fireConfig);
+    firebase.initializeApp(config.firebase);
 }
 const db = firebase.firestore();
 db.settings({ timestampsInSnapshots: true});
@@ -47,19 +47,24 @@ router.get('/:id', async(req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         debugger;
-        const user = req.body;
-        if (!user) throw new Error('User is blank');
+        const newUser = req.body;
+        if (!newUser) throw new Error('newUser is blank');
 
-        const { address, privateKey } = contracts.createAccount();
-        user.data.wallet = { address, privateKey };
+        let currentUser = await db.collection('users').doc(newUser.id).get();
 
-        
-        await db.collection('users').doc(user.id).set(user.data);
-        //send ethereum to account
+        if (!currentUser.data().wallet) {
+            const { address, privateKey } = contracts.createAccount();
+            newUser.data.wallet = { address, privateKey };
+            
+            await db.collection('users').doc(newUser.id).set(newUser.data);
+    
+            await contracts.fillAccount(address);
+            console.log(`transfer gas to ${address}`);
+        }
 
         res.json({
-            id: user.id,
-            data: user.data
+            id: newUser.id,
+            data: newUser.data
         });
     } catch(e) {
         next(e);

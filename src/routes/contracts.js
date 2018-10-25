@@ -4,7 +4,7 @@ import config  from '../../config';
 
 
 if (!firebase.apps.length) {
-    firebase.initializeApp(config.fireConfig);
+    firebase.initializeApp(config.firebase);
 }
 const db = firebase.firestore();
 db.settings({ timestampsInSnapshots: true});
