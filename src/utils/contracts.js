@@ -11,16 +11,18 @@ import config  from '../../config';
 let web3 = undefined;
 let mainAccount;
 
-if (typeof web3 !== 'undefined') {
-    web3 = new Web3(web3.currentProvider);
-} else {
-    // set the provider you want from Web3.providers
-    //https://rinkeby.infura.io/2nluVzjZVelxFadFKD0f
-    // "http://localhost:8545"
-    // web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/2nluVzjZVelxFadFKD0f"));
-    // web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-    web3 = new Web3(new Web3.providers.WebsocketProvider(`ws://localhost:8545`));
-}
+web3 = new Web3(new Web3.providers.WebsocketProvider(`ws://localhost:8545`));
+
+// if (typeof web3 !== 'undefined') {
+//     web3 = new Web3(web3.currentProvider);
+// } else {
+//     // set the provider you want from Web3.providers
+//     //https://rinkeby.infura.io/2nluVzjZVelxFadFKD0f
+//     // "http://localhost:8545"
+//     // web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/2nluVzjZVelxFadFKD0f"));
+//     // web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+//     web3 = new Web3(new Web3.providers.WebsocketProvider(`ws://localhost:8545`));
+// }
 
 if (!firebase.apps.length) {
     firebase.initializeApp(config.firebase);
@@ -68,10 +70,10 @@ export const getMainAccount = () => {
 export const fillAccount = async (toAddress) => {
   try {
     const { address, key } = getMainAccount();
-    var gasPrice = await web3.eth.getGasPrice(); //1; //2;//or get with web3.eth.gasPrice
+    var gasPrice = 1; //await web3.eth.getGasPrice(); //1; //2;//or get with web3.eth.gasPrice
     var gasLimit = 3000000;
 
-    var amountToSend = "0.1"; //ethers //"0.00192823123348952";
+    var amountToSend = "0.01"; //ethers //"0.00192823123348952";
     var nonce = await web3.eth.getTransactionCount(address); //211;
 
     var rawTransaction = {
