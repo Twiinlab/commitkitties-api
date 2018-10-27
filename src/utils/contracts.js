@@ -70,7 +70,7 @@ export const getMainAccount = () => {
 export const fillAccount = async (toAddress) => {
   try {
     const { address, key } = getMainAccount();
-    var gasPrice = 1; //await web3.eth.getGasPrice(); //1; //2;//or get with web3.eth.gasPrice
+    var gasPrice = await web3.eth.getGasPrice(); //1; //2;//or get with web3.eth.gasPrice
     var gasLimit = 3000000;
 
     var amountToSend = "0.01"; //ethers //"0.00192823123348952";
