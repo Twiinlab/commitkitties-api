@@ -68,7 +68,7 @@ export const getMainAccount = () => {
 }
 
 export const fillAccount = async (toAddress) => {
-  try {
+    
     const { address, key } = getMainAccount();
     var gasPrice = await web3.eth.getGasPrice(); //1; //2;//or get with web3.eth.gasPrice
     var gasLimit = 3000000;
@@ -93,9 +93,5 @@ export const fillAccount = async (toAddress) => {
     var serializedTx = tx.serialize();
 
     return await web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'));;
-
-  } catch (error) {
-    console.error(error);
-  }
 
 }

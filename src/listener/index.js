@@ -3,6 +3,13 @@
 import * as contracts from '../utils/contracts.js';
 import config  from '../../config';
 
+function printEvent( event, returnValues, blockNumber ){
+    console.log('----------------------------------------------');
+    console.log(`--------- EVENT (${event}) START ---------`)
+    console.log(`returnValues = ${returnValues}`)
+    console.log(`blockNumber (${blockNumber})`)
+}
+
 module.exports.watchContract = async () => {
     const contract = await contracts.getContract('KittyCore');
     try {
@@ -12,14 +19,11 @@ module.exports.watchContract = async () => {
             }
           })
           .on('data', (log) => {
-  
-            let { returnValues, blockNumber } = log;
-  
-            console.log('----------------------------------------------');
-            console.log(`--------- EVENT (${log.event}) START ---------`)
-            console.log(`returnValues = ${returnValues}`)
-            console.log(`blockNumber (${blockNumber})`)
-  
+            printEvent( log.event, log.returnValues, log.blockNumber )
+            //CreateAuction
+            //Birth
+            //Bid
+            //CancelAuction
   
           })
           .on('changed', (log) => {
