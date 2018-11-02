@@ -6,7 +6,7 @@ import bip39 from 'bip39';
 import hdkey from 'ethereumjs-wallet/hdkey';
 import wallet from 'ethereumjs-wallet';
 
-import config  from '../../config';
+import { db } from './firebase';
 
 let web3 = undefined;
 let mainAccount;
@@ -23,13 +23,6 @@ web3 = new Web3(new Web3.providers.WebsocketProvider(`ws://localhost:8545`));
 //     // web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 //     web3 = new Web3(new Web3.providers.WebsocketProvider(`ws://localhost:8545`));
 // }
-
-if (!firebase.apps.length) {
-    firebase.initializeApp(config.firebase);
-}
-const db = firebase.firestore();
-db.settings({ timestampsInSnapshots: true});
-
 
 export const getContract = async (contractName) => {
     const metaContract = await db.collection('contracts').doc(contractName).get();

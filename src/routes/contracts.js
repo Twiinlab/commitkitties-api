@@ -1,13 +1,5 @@
 import express, { Router, Request } from 'express';
-import firebase from 'firebase';
-import config  from '../../config';
-
-
-if (!firebase.apps.length) {
-    firebase.initializeApp(config.firebase);
-}
-const db = firebase.firestore();
-db.settings({ timestampsInSnapshots: true});
+import { db }  from '../utils/firebase';
 
 const router = Router()
 router.get('/', async (req, res, next) => {

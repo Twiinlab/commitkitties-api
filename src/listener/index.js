@@ -3,12 +3,22 @@
 import * as contracts from '../utils/contracts.js';
 import * as kittyService from '../routes/kitties/service';
 
-import config  from '../../config';
+import * as firebase from '../utils/firebase';
 
 
 module.exports.watchContract = async () => {
+
+  // watchAllEvents( await contracts.getContract('KittyCore') );
+  // watchAllEvents( await contracts.getContract('SaleClockAuction') );
+
+  firebase.contractsCollection.doc('KittyCore').onSnapshot( async () => { 
     watchAllEvents( await contracts.getContract('KittyCore') );
+  });
+
+  firebase.contractsCollection.doc('SaleClockAuction').onSnapshot( async () => { 
     watchAllEvents( await contracts.getContract('SaleClockAuction') );
+  })
+
 }
 
 function printEvent( log ){
@@ -31,10 +41,10 @@ async function watchAllEvents( contract ) {
               let kitty;
               switch (log.event) {
                 case 'Transfer':
+                  //log.returnValues="from":"0x4AAa4E3ce8E9d8A6533B75db54da017E2Cf811c8","to":"0x2B7ec3747C6d4EBfd79512Ac2ad32C189aFe911c","tokenId":"12"
                   kitty = await kittyService.getKittyById(log.returnValues.tokenId);
                   kitty.data.owner = { address: log.returnValues.to };
                   await kittyService.updateKitty(kitty.id, kitty.data);
-                  //log.returnValues="from":"0x4AAa4E3ce8E9d8A6533B75db54da017E2Cf811c8","to":"0x2B7ec3747C6d4EBfd79512Ac2ad32C189aFe911c","tokenId":"12"
                   break;
                 case 'AuctionCreated':
                   //log.returnValues="tokenId":"12","startingPrice":"200","endingPrice":"200","duration":"200"
@@ -62,10 +72,7 @@ async function watchAllEvents( contract ) {
                 console.log(`watchAllEvents Event: ${log.event} Error: ${error}`)
             }
             
-            //CreateAuction
             //Birth
-            //Bid
-            //CancelAuction
             
 
           })

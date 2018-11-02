@@ -1,13 +1,6 @@
 
-import firebase from 'firebase';
-import config  from '../../../config';
+import { db } from '../../utils/firebase';
 import * as contracts from '../../utils/contracts';
-
-if (!firebase.apps.length) {
-    firebase.initializeApp(config.firebase);
-}
-const db = firebase.firestore();
-db.settings({ timestampsInSnapshots: true});
 
 export const getKitties = async () => {
     const noteSnapshot = await db.collection('kitties').get();

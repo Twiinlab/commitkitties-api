@@ -1,15 +1,5 @@
 
 const service = require('./service');
-import firebase from 'firebase';
-import config  from '../../../config';
-import * as contracts from '../../utils/contracts';
-
-if (!firebase.apps.length) {
-    firebase.initializeApp(config.firebase);
-}
-const db = firebase.firestore();
-db.settings({ timestampsInSnapshots: true});
-
 
 export const getKitties = async (req, res, next) => {
     console.log(`call GET ALL kitties`);
