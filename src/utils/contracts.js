@@ -40,6 +40,18 @@ export const createAccount = function() {
     return web3.eth.accounts.create();
 }
 
+export const getBalance = async (address) => {
+    return web3.eth.getBalance(address)
+}
+
+export const WeiToEther = (wei) => {
+    return web3.utils.fromWei(wei, 'ether')
+}
+
+export const EtherToWei = (ether) => {
+    return web3.utils.toWei(ether, 'ether')
+}
+
 export const getKittiesById = async (id) => {
   const contract = await getContract('KittyCore');
   try {

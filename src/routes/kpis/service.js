@@ -121,10 +121,15 @@ async function getCallAggregate(){
     ]).toArray();
 }
 
-module.exports.getLeaderboard = async () => {
+export const getLeaderboard = async(userId) => {
 
-  return Promise.all([getDeployAggregate(), getCallAggregate()])
-    .then(([eventDeploy, eventCall]) => {
-        return eventDeploy.concat(eventCall);
-      });
+  let result = [];
+  const users = await userService.getUsers();
+  await Promise.all( users.map(async user => {
+    result.push({
+      userId: user.id,
+      balance: contracts.WeiToEther(await contracts.getBalance(user.data.wallet.address))
+    });
+  }));
+  return result;
 }

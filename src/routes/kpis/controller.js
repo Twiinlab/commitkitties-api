@@ -40,3 +40,14 @@ export const addBlock = async (req, res, next) => {
         next(e);
     }
 };
+
+
+export const getLeaderboard = async(req, res, next) => {
+    console.log(`call GET Leaderboard`);
+    try {
+        const response = await service.getLeaderboard();
+        res.json(response);
+    } catch(e) {
+        next(e);
+    }
+  }

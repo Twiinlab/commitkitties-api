@@ -6,5 +6,6 @@ router.get('/', controller.getBlocks )
 router.get('/transactionhash/:transactionhash', controller.getBlockByTransactionHash )
 router.get('/userid/:userid', controller.getBlockByUserId )
 router.post('/', controller.addBlock );
+router.get('/leaderboard', controller.getLeaderboard )
 
 export default router;
