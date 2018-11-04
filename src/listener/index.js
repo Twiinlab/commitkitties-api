@@ -1,15 +1,29 @@
 'use strict';
 
-import * as contracts from '../utils/contracts.js';
+import * as contracts from '../utils/contracts';
 import * as kittyService from '../routes/kitties/service';
-
 import * as firebase from '../utils/firebase';
+import * as db from '../utils/db.js';
+import * as config from '../../config';
+import { web3connection } from '../utils/contracts';
 
+
+async function getCollection(collection = 'blocks') {
+  return await db.getDb(config.default.mongo.db).then((client) => client.collection(collection));
+}
+
+async function persistBlock(data){
+  const coll = await getCollection();
+  
+  return coll.insertOne(data);
+}
+
+async function insertKpi(data){
+  data.tx = await web3connection.eth.getTransaction(data.transactionHash);
+  await persistBlock(data);
+}
 
 module.exports.watchContract = async () => {
-
-  // watchAllEvents( await contracts.getContract('KittyCore') );
-  // watchAllEvents( await contracts.getContract('SaleClockAuction') );
 
   firebase.contractsCollection.doc('KittyCore').onSnapshot( async () => { 
     watchAllEvents( await contracts.getContract('KittyCore') );
@@ -68,6 +82,13 @@ async function watchAllEvents( contract ) {
                 default:
                   break;
               }
+              //Persist KPI
+              await insertKpi({
+                transactionHash: log.transactionHash,
+                type: log.event,
+                params: log.returnValues,
+                data: log
+              })
             } catch (error) {
                 console.log(`watchAllEvents Event: ${log.event} Error: ${error}`)
             }

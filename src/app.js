@@ -37,8 +37,8 @@ import express from 'express';
 import cors from 'cors';
 import kitties from './routes/kitties/routes';
 import contracts from './routes/contracts';
-import users from './routes/users';
-import kpis from './routes/kpis';
+import users from './routes/users/routes';
+import kpis from './routes/kpis/routes';
 import * as listener from './listener';
 import * as contractsUtils from './utils/contracts';
 
@@ -51,7 +51,7 @@ app.use(express.json());
 app.use('/api/kitties', kitties);
 app.use('/api/contracts', contracts);
 app.use('/api/users', users);
-app.use('/kpis', kpis);
+app.use('/api/kpis', kpis);
 
 app.use(methodOverride())
 app.use((err, req, res, next) => {
@@ -60,14 +60,10 @@ app.use((err, req, res, next) => {
 });
 
 const server = app.listen(process.env.PORT || 8080, function () {
-
-  const host = server.address().address;
-  const port = server.address().port;
-
-  console.log("Example app listening at http://%s:%s", host, port);
+  console.log("Example app listening at http://%s:%s", server.address().address, server.address().port);
 });
 
-
+// @ts-ignore
 listener.watchContract().then(function(){
   console.log('Listening KittyCore Events')
 })

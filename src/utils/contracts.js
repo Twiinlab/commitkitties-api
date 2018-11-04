@@ -5,6 +5,7 @@ import Tx from 'ethereumjs-tx';
 import bip39 from 'bip39';
 import hdkey from 'ethereumjs-wallet/hdkey';
 import wallet from 'ethereumjs-wallet';
+import config from '../../config';
 
 import { db } from './firebase';
 
@@ -12,6 +13,9 @@ let web3 = undefined;
 let mainAccount;
 
 web3 = new Web3(new Web3.providers.WebsocketProvider(`ws://localhost:8545`));
+
+// @ts-ignore
+export const web3connection = web3;
 
 // if (typeof web3 !== 'undefined') {
 //     web3 = new Web3(web3.currentProvider);

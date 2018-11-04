@@ -20,7 +20,6 @@ export const getKittyById = async(id) => {
     if (!kitties.exists) {
         throw new Error('kitties does not exists');
     }
-    await contracts.getKittiesById(id);
     return {
         id: kitties.id,
         data: kitties.data()
