@@ -69,6 +69,7 @@ async function watchAllEvents( contract ) {
                 case 'AuctionSuccessful':
                   //log.returnValues="tokenId":"13","totalPrice":"100","winner":"0x6999e1D9ec10d0b0D06C657e289F55A2e17DEa64"
                   kitty = await kittyService.getKittyById(log.returnValues.tokenId);
+                  kitty.data.value = kitty.data.auction.price;
                   kitty.data.auction = { };
                   kitty.data.owner = { address: log.returnValues.winner };
                   await kittyService.updateKitty(kitty.id, kitty.data);
