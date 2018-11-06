@@ -42,10 +42,10 @@ export const addBlock = async (req, res, next) => {
 };
 
 
-export const getLeaderboard = async(req, res, next) => {
+export const getRanking = async(req, res, next) => {
     console.log(`call GET Leaderboard`);
     try {
-        const response = await service.getLeaderboard();
+        const response = await service.getRanking();
         res.json(response);
     } catch(e) {
         next(e);

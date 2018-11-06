@@ -36,31 +36,19 @@ export const getBlockByUserId = async(userId) => {
   const coll = await getCollection();
   return  coll.aggregate(
     [ 
-      { $match: { 
-          $and: [
-              {
-                  $or: [ 
-                      { type: "Transfer" }, 
-                      { type: "AuctionCreated" }, 
-                      { type: "AuctionSuccessful" }, 
-                      { type: "AuctionCancelled" } 
-                    ] 
-                  },
-              {
-                  $or: [ { "params.from": user.wallet.address } ]
-                  
-                  }
-          ]
-         }
-        },
-        { 
-          $group: {
-              _id: "$type",
-              gasPrice: { $last : "$tx.gasPrice" },
-              count: { $sum : 1 }
-            }
-          }
-      ]).toArray();
+    { $match: { 
+        $and: [{ $or: [ 
+                    { type: "Transfer" }, 
+                    { type: "AuctionCreated" }, 
+                    { type: "AuctionSuccessful" }, 
+                    { type: "AuctionCancelled" } 
+                  ] 
+                },
+                { $or: [ { "tx.from": "0x3788e8Dc5aF58DA6866454AcAC0597AFF03ab8E9" } ] }
+               ]
+       }
+      }
+    ]).toArray();
 }
 
 export const addBlock = async (data) => {
@@ -121,7 +109,7 @@ async function getCallAggregate(){
     ]).toArray();
 }
 
-export const getLeaderboard = async(userId) => {
+export const getRanking = async(userId) => {
 
   let result = [];
   const users = await userService.getUsers();
