@@ -3,6 +3,8 @@ import * as contracts from '../../utils/contracts';
 import * as db from '../../utils/db';
 import * as config from '../../../config';
 import * as userService from '../users/service';
+import * as kittyService from '../kitties/service';
+
 
 async function getCollection(collection = 'blocks') {
   return await db.getDb(config.default.mongo.db).then((client) => client.collection(collection));
@@ -109,14 +111,19 @@ async function getCallAggregate(){
     ]).toArray();
 }
 
-export const getRanking = async(userId) => {
+export const getRanking = async() => {
 
   let result = [];
   const users = await userService.getUsers();
   await Promise.all( users.map(async user => {
+    let kitties = await kittyService.getKittyByUserAddress(user.data.wallet.address);
+    let gas = parseFloat(await contracts.getBalance(user.data.wallet.address));
+    let kittyValues = kitties.reduce((acc, kitty) => { return acc + parseFloat(kitty.value); }, 0);
     result.push({
       userId: user.id,
-      balance: contracts.WeiToEther(await contracts.getBalance(user.data.wallet.address))
+      kitties,
+      gas: contracts.WeiToEther(gas.toString()),
+      balance: contracts.WeiToEther( (gas + kittyValues).toString() )
     });
   }));
   return result;

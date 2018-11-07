@@ -16,14 +16,24 @@ export const getKitties = async () => {
 
 export const getKittyById = async(id) => {
     if (!id) throw new Error('id is blank');
-    const kitties = await db.collection('kitties').doc(id).get();
-    if (!kitties.exists) {
-        throw new Error('kitties does not exists');
+    const kitty = await db.collection('kitties').doc(id).get();
+    if (!kitty.exists) {
+        throw new Error('kitty does not exists');
     }
     return {
-        id: kitties.id,
-        data: kitties.data()
+        id: kitty.id,
+        data: kitty.data()
     };
+}
+
+export const getKittyByUserAddress = async(userAddrs) => {
+    if (!userAddrs) throw new Error('userAddrs is blank');
+    let list = [];
+    const kitties = await db.collection('kitties').where("owner.address","==",userAddrs).get();
+    kitties.forEach(kitty=>{
+        list.push(kitty.data());
+    });
+    return list;
 }
 
 export const addKitty = async (kitty) => {

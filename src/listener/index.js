@@ -88,7 +88,8 @@ async function watchAllEvents( contract ) {
                 transactionHash: log.transactionHash,
                 type: log.event,
                 params: log.returnValues,
-                data: log
+                data: log,
+                timestamp: new Date()
               })
             } catch (error) {
                 console.log(`watchAllEvents Event: ${log.event} Error: ${error}`)
