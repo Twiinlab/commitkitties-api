@@ -120,7 +120,7 @@ export const getRanking = async() => {
     let gas = parseFloat(await contracts.getBalance(user.data.wallet.address));
     let kittyValues = kitties.reduce((acc, kitty) => { return acc + parseFloat(kitty.value); }, 0);
     result.push({
-      userId: user.id,
+      userId: user.data,
       kitties,
       gas: contracts.WeiToEther(gas.toString()),
       balance: contracts.WeiToEther( (gas + kittyValues).toString() )
