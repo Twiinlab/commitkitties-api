@@ -23,7 +23,7 @@ const usersCollection = db.collection('users')
 const kittiesCollection = db.collection('kitties')
 const contractsCollection = db.collection('contracts')
 const rankingCollection = db.collection('ranking')
-const kpiCollection = db.collection('kpi')
+const kpiCollection = db.collection('kpis')
 
 
 
