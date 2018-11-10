@@ -39,7 +39,9 @@ import kitties from './routes/kitties/routes';
 import contracts from './routes/contracts';
 import users from './routes/users/routes';
 import kpis from './routes/kpis/routes';
-import * as listener from './listener';
+import * as listener from './listener/contract';
+import * as ranking from './listener/service';
+
 import * as contractsUtils from './utils/contracts';
 
 
@@ -54,6 +56,7 @@ app.use('/api/users', users);
 app.use('/api/kpis', kpis);
 
 app.use(methodOverride())
+// @ts-ignore
 app.use((err, req, res, next) => {
     console.log("error: ", err.message );
     res.status(400).json({ error: err.message });
@@ -66,6 +69,16 @@ const server = app.listen(process.env.PORT || 8080, function () {
 // @ts-ignore
 listener.watchContract().then(function(){
   console.log('Listening KittyCore Events')
+})
+
+// @ts-ignore
+listener.watchContract().then(function(){
+  console.log('Listening KittyCore Events')
+})
+
+// @ts-ignore
+ranking.syncRanking().then(function(){
+  console.log('syncRanking Up and running')
 })
 
 console.log('Main account', JSON.stringify(contractsUtils.getMainAccount()));

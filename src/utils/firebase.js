@@ -22,6 +22,8 @@ db.settings(settings)
 const usersCollection = db.collection('users')
 const kittiesCollection = db.collection('kitties')
 const contractsCollection = db.collection('contracts')
+const rankingCollection = db.collection('ranking')
+
 
 export {
     firebase,
@@ -30,5 +32,6 @@ export {
     currentUser,
     usersCollection,
     kittiesCollection,
-    contractsCollection
+    contractsCollection,
+    rankingCollection
 }
