@@ -72,8 +72,8 @@ listener.watchContract().then(function(){
 })
 
 // @ts-ignore
-ranking.syncRanking().then(function(){
-  console.log('syncRanking Up and running')
+ranking.syncKPIs().then(function(){
+  console.log('syncKPIs Up and running')
 })
 
 console.log('Main account', JSON.stringify(contractsUtils.getMainAccount()));

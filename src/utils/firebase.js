@@ -23,6 +23,8 @@ const usersCollection = db.collection('users')
 const kittiesCollection = db.collection('kitties')
 const contractsCollection = db.collection('contracts')
 const rankingCollection = db.collection('ranking')
+const kpiCollection = db.collection('kpi')
+
 
 
 export {
@@ -33,5 +35,6 @@ export {
     usersCollection,
     kittiesCollection,
     contractsCollection,
-    rankingCollection
+    rankingCollection,
+    kpiCollection
 }
