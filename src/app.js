@@ -72,11 +72,6 @@ listener.watchContract().then(function(){
 })
 
 // @ts-ignore
-listener.watchContract().then(function(){
-  console.log('Listening KittyCore Events')
-})
-
-// @ts-ignore
 ranking.syncRanking().then(function(){
   console.log('syncRanking Up and running')
 })
