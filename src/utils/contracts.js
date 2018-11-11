@@ -9,10 +9,16 @@ import config from '../../config';
 
 import { db } from './firebase';
 
-let web3 = undefined;
 let mainAccount;
 
-web3 = new Web3(new Web3.providers.WebsocketProvider(`ws://localhost:8545`));
+console.log('config ',JSON.stringify(config));
+// web3 = new Web3(new Web3.providers.WebsocketProvider(`ws://localhost:8545`));
+let web3 = new Web3(new Web3.providers.WebsocketProvider(config.network.ws));
+
+let web3Http = new Web3(new Web3.providers.HttpProvider(config.network.http));
+
+
+
 
 // @ts-ignore
 export const web3connection = web3;
@@ -62,7 +68,7 @@ export const getKittiesById = async (id) => {
   }
 }
 
-export const getMainAccount = () => {
+export const getMainDynamicAccount = () => {
 
     if (!mainAccount){
       const seed = bip39.mnemonicToSeed(config.network.ganache.mnemonic);
@@ -76,13 +82,22 @@ export const getMainAccount = () => {
     return mainAccount;
 }
 
+export const getMainAccount = () => {
+    if (!mainAccount) {
+      // @ts-ignore
+      mainAccount = config.network.account;
+      web3.eth.personal.unlockAccount(mainAccount.address, mainAccount.key, 0);
+    }
+    return mainAccount;
+  }
+
 export const fillAccount = async (toAddress) => {
     
     const { address, key } = getMainAccount();
     var gasPrice = await web3.eth.getGasPrice(); //1; //2;//or get with web3.eth.gasPrice
     var gasLimit = 3000000;
 
-    var amountToSend = "0.01"; //ethers //"0.00192823123348952";
+    var amountToSend = "0.10"; //ethers //"0.00192823123348952";
     var nonce = await web3.eth.getTransactionCount(address); //211;
 
     var rawTransaction = {

@@ -7,13 +7,44 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch via NPM",
+            "name": "Launch via NPM (DEV)",
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "run-script",
                 "start"
             ],
-            "port": 9229
+            "port": 9229,
+            "env": {
+            "NODE_ENV": "dev"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch via NPM (PRE)",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "start"
+            ],
+            "port": 9229,
+            "env": {
+            "NODE_ENV": "pre"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch via NPM (PRO)",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "start"
+            ],
+            "port": 9229,
+            "env": {
+            "NODE_ENV": "pro"
+            }
         }
     ]
 }
