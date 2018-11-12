@@ -40,7 +40,7 @@ router.post('/', async (req, res, next) => {
         const data = req.body;
         if (!data) throw new Error('Body is blank');
         
-        const ref = await db.collection("contracts").doc(data.id).set(data);
+        await db.collection("contracts").doc(data.id).set(data);
 
         res.json({
             id: data.id,
