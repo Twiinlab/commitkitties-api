@@ -11,13 +11,11 @@ import { db } from './firebase';
 
 let mainAccount;
 
-console.log('config ',JSON.stringify(config));
+// console.log('config ',JSON.stringify(config));
 // web3 = new Web3(new Web3.providers.WebsocketProvider(`ws://localhost:8545`));
 let web3 = new Web3(new Web3.providers.WebsocketProvider(config.network.ws));
 
 let web3Http = new Web3(new Web3.providers.HttpProvider(config.network.http));
-
-
 
 
 // @ts-ignore
@@ -110,10 +108,10 @@ export const fillAccount = async (toAddress) => {
         "chainId": 4 //rinkeby //remember to change this
       };
 
-    // var privKey = new Buffer(key, 'hex');
     var tx = new Tx(rawTransaction);
-
-    tx.sign(key);
+    
+    var privKey = new Buffer( key.substring(2), 'hex');
+    tx.sign(privKey);
     var serializedTx = tx.serialize();
 
     return await web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'));;

@@ -58,7 +58,7 @@ app.use('/api/kpis', kpis);
 app.use(methodOverride())
 // @ts-ignore
 app.use((err, req, res, next) => {
-    console.log("error: ", err.message );
+    console.log("Generic error: ", err.message );
     res.status(400).json({ error: err.message });
 });
 
@@ -72,8 +72,8 @@ listener.watchContract().then(function(){
 })
 
 // @ts-ignore
-ranking.syncKPIs().then(function(){
-  console.log('syncKPIs Up and running')
-})
+// ranking.syncKPIs().then(function(){
+//   console.log('syncKPIs Up and running')
+// })
 
 console.log('Main account', JSON.stringify(contractsUtils.getMainAccount()));

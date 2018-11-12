@@ -34,6 +34,9 @@ export const getBlockByUserId = async(userId) => {
 
   let user = (await userService.getUserById(userId)).data;
 
+  if (!user.wallet || !user.wallet.address) {
+    throw new Error('User does not have wallet yet');
+  }
   const coll = await getCollection();
   return  coll.aggregate(
     [ 
