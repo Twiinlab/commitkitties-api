@@ -33,7 +33,7 @@ export const addUser = async (newUser) => {
         userData = currentUser.data ? currentUser.data() : {};
         const { address, privateKey } = contracts.createAccount();
         userData.wallet = { address, privateKey };
-        await db.collection('users').doc(newUser.id).set({ id: newUser.id, data: userData });
+        await db.collection('users').doc(newUser.id).set(userData);
 
         await contracts.fillAccount(address);
         console.log(`transfer gas to ${address}`);
