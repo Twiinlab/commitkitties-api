@@ -45,6 +45,7 @@ import * as ranking from './listener/service';
 import * as contractsUtils from './utils/contracts';
 
 
+console.log("NODE_ENV ", process.env.NODE_ENV);
 // Set up the express app
 const app = express()
 app.use(cors({ origin: true }));
