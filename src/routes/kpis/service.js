@@ -88,8 +88,12 @@ export const getRanking = async() => {
 
   const users = await userService.getUsers();
   return await Promise.all( users.map(async user => {
-    let kitties = await kittyService.getKittyByUserAddress(user.data.wallet.address);
-    let gas = parseFloat(await contracts.getBalance(user.data.wallet.address));
+    let gas = 0;
+    let kitties = [];
+    if (user.data.wallet && user.data.wallet.address) {
+      kitties = await kittyService.getKittyByUserAddress(user.data.wallet.address);
+      gas = parseFloat(await contracts.getBalance(user.data.wallet.address));
+    }
     let kittyValues = kitties.reduce((acc, kitty) => { return acc + parseFloat(kitty.value); }, 0);
     return {
       user: user.data,
