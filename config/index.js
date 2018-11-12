@@ -2,10 +2,6 @@
 const env = process.env.NODE_ENV;
 
 const defaultConfig = {
-  mongo: {
-    db: "commitkitties-db",
-    uri: "mongodb://commitkittiesadmin:commitkitties2018@ds119503.mlab.com:19503/commitkitties-db"
-  },
   network: {
     "ganache": {
       "mnemonic": "cargo little forum bring connect ready old matter accident ability never thumb"
@@ -15,6 +11,10 @@ const defaultConfig = {
 
 const custom = {
   dev: {
+    mongo: {
+      db: "commitkitties-db",
+      uri: "mongodb://commitkittiesadmin:commitkitties2018@ds119503.mlab.com:19503/commitkitties-db"
+    },
     firebase: {
       apiKey: "AIzaSyAQxPhK8Hag2-C0HUWS0HSkfSmmsrDMoW8",
       authDomain: "commitkitties.firebaseapp.com",
@@ -38,6 +38,10 @@ const custom = {
     } 
   },
   pre: {
+    mongo: {
+      db: "commitkitties-db",
+      uri: "mongodb://commitkittiesadmin-geth:commitkitties2018-geth@ds119503.mlab.com:19503/commitkitties-db"
+    },
     firebase: {
       apiKey: "AIzaSyAneLpLkRE7lLi2tFasaQHXs18FuLBz1IY",
       authDomain: "commitkitties-geth.firebaseapp.com",
@@ -61,6 +65,10 @@ const custom = {
     } 
   },
   pro: {
+    mongo: {
+      db: "commitkitties-db",
+      uri: "mongodb://commitkittiesadmin:commitkitties2018@ds119503.mlab.com:19503/commitkitties-db"
+    },
     firebase: {
       apiKey: "AIzaSyAQxPhK8Hag2-C0HUWS0HSkfSmmsrDMoW8",
       authDomain: "commitkitties.firebaseapp.com",
