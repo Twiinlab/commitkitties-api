@@ -7,3 +7,6 @@ gcloud config set project commitkitties-api
 gcloud app deploy
 
 gcloud app deploy app.yaml (last param yaml optional)
+
+gcloud app deploy app-pro.yaml
+gcloud app deploy app-pre.yaml

@@ -13,7 +13,8 @@
 
 # [START gae_quickstart_yaml]
 runtime: nodejs8
+service: pro
 instance_class: F4
 env_variables:
-  NODE_ENV: "pre"
+  NODE_ENV: "pro"
 # [END gae_quickstart_yaml]
