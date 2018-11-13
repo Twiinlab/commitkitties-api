@@ -11,7 +11,7 @@
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "run-script",
-                "start"
+                "debug"
             ],
             "port": 9229,
             "env": {
@@ -25,7 +25,7 @@
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "run-script",
-                "start"
+                "debug"
             ],
             "port": 9229,
             "env": {
@@ -39,7 +39,7 @@
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "run-script",
-                "start"
+                "debug"
             ],
             "port": 9229,
             "env": {

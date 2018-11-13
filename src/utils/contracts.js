@@ -60,7 +60,6 @@ export const getKittiesById = async (id) => {
   try {
       return contract.methods.getKitty(id).call();
   } catch (error) {
-      debugger;
       console.log(error);
   }
 }

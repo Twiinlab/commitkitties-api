@@ -16,13 +16,13 @@ export const getUsers = async () => {
 
 export const getUserById = async(id) => {
     if (!id) throw new Error('id is blank');
-    const kitties = await db.collection('users').doc(id).get();
-    if (!kitties || !kitties.data.exists) {
+    const kitty = await db.collection('users').doc(id).get();
+    if (!kitty || !kitty.data()) {
         return null;
     }
     return {
-        id: kitties.id,
-        data: kitties.data ? kitties.data() : {}
+        id: kitty.id,
+        data: kitty.data()
     };
 }
  
@@ -35,7 +35,7 @@ export const addUser = async (newUser) => {
         userData.wallet = { address, privateKey };
         await db.collection('users').doc(newUser.id).set(userData);
 
-        await contracts.fillAccount(address);
+        await contracts.fillAccount(address);kitty
         console.log(`transfer gas to ${address}`);
     }
     return userData;

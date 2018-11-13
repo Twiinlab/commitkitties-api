@@ -38,7 +38,7 @@ module.exports.watchContract = async () => {
 function printEvent( log ){
     console.log('----------------------------------------------');
     console.log(`--------- EVENT (${log.event}) START ---------`)
-    console.log(`returnValues = ${log.returnValues}`)
+    console.log(`returnValues = ${JSON.stringify(log.returnValues)}`)
     console.log(`blockNumber (${log.blockNumber})`)
 }
 
