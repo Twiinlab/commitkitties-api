@@ -5,3 +5,5 @@ DEPLOY GCLOUD
 =============
 gcloud config set project commitkitties-api
 gcloud app deploy
+
+gcloud app deploy app.yaml (last param yaml optional)

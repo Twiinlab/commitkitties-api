@@ -12,20 +12,16 @@ const defaultConfig = {
 const custom = {
   dev: {
     mongo: {
-      db: "commitkitties-db",
-      uri: "mongodb://commitkittiesadmin:commitkitties2018@ds119503.mlab.com:19503/commitkitties-db"
+      db: "commitkitties-geth-db",
+      uri: "mongodb://commitkittiesadmin-geth:commitkitties2018-geth@ds151463.mlab.com:51463/commitkitties-geth-db"
     },
     firebase: {
-      apiKey: "AIzaSyAQxPhK8Hag2-C0HUWS0HSkfSmmsrDMoW8",
-      authDomain: "commitkitties.firebaseapp.com",
-      databaseURL: "https://commitkitties.firebaseio.com",
-      projectId: "commitkitties",
-      storageBucket: "commitkitties.appspot.com",
-      messagingSenderId: "1020750963599"
-    },
-    api: {
-      endpoint: 'http://localhost:8080',
-      base: '/api'
+      apiKey: "AIzaSyAneLpLkRE7lLi2tFasaQHXs18FuLBz1IY",
+      authDomain: "commitkitties-geth.firebaseapp.com",
+      databaseURL: "https://commitkitties-geth.firebaseio.com",
+      projectId: "commitkitties-geth",
+      storageBucket: "commitkitties-geth.appspot.com",
+      messagingSenderId: "908015484677"
     },
     network:{
       http: "http://localhost:8545",
@@ -39,8 +35,8 @@ const custom = {
   },
   pre: {
     mongo: {
-      db: "commitkitties-db",
-      uri: "mongodb://commitkittiesadmin-geth:commitkitties2018-geth@ds119503.mlab.com:19503/commitkitties-db"
+      db: "commitkitties-geth-db",
+      uri: "mongodb://commitkittiesadmin-geth:commitkitties2018-geth@ds151463.mlab.com:51463/commitkitties-geth-db"
     },
     firebase: {
       apiKey: "AIzaSyAneLpLkRE7lLi2tFasaQHXs18FuLBz1IY",
@@ -49,10 +45,6 @@ const custom = {
       projectId: "commitkitties-geth",
       storageBucket: "commitkitties-geth.appspot.com",
       messagingSenderId: "908015484677"
-    },
-    api: {
-      endpoint: 'http://localhost:8080',
-      base: '/api'
     },
     network:{
       http: "http://35.231.178.158:8545",
@@ -77,16 +69,12 @@ const custom = {
       storageBucket: "commitkitties.appspot.com",
       messagingSenderId: "1020750963599"
     },
-    api: {
-      endpoint: 'https://commitkitties-api.appspot.com',
-      base: '/api'
-    },
     network: {
-      http: "https://rinkeby.infura.io/2nluVzjZVelxFadFKD0f",
-      ws: "wss://rinkeby.infura.io/2nluVzjZVelxFadFKD0f",
+      http:  "https://rinkeby.infura.io/v3/b97d8303c3d84cf8bb43c325612ae8a7", //"https://rinkeby.infura.io/2nluVzjZVelxFadFKD0f",
+      ws: "wss://rinkeby.infura.io/ws", //"wss://rinkeby.infura.io/v3/b97d8303c3d84cf8bb43c325612ae8a7", //"wss://rinkeby.infura.io/2nluVzjZVelxFadFKD0f",
       account: {
-          address: "0x359247c938ea24Aef9e30fDD8eaa0F39DCbB2249",
-          key: "92EAE2BCD7BCF17BF9FA0E82DE08393BF5D67AB9203C704A95CC793F25A1E37C"
+          address: "0x8420AaB0b1a42c26089e696FBeF3e35ec9Da2849", //"0x359247c938ea24Aef9e30fDD8eaa0F39DCbB2249",
+          key: "0x79A2227E181F91A2CFE1C89394A2BF0D530B83952A83928770F3ABB2070A5F30" //"0x92EAE2BCD7BCF17BF9FA0E82DE08393BF5D67AB9203C704A95CC793F25A1E37C"
       }
     }
   }

@@ -14,7 +14,6 @@ let mainAccount;
 // console.log('config ',JSON.stringify(config));
 // web3 = new Web3(new Web3.providers.WebsocketProvider(`ws://localhost:8545`));
 let web3 = new Web3(new Web3.providers.WebsocketProvider(config.network.ws));
-
 let web3Http = new Web3(new Web3.providers.HttpProvider(config.network.http));
 
 
@@ -84,7 +83,7 @@ export const getMainAccount = () => {
     if (!mainAccount) {
       // @ts-ignore
       mainAccount = config.network.account;
-      web3.eth.personal.unlockAccount(mainAccount.address, mainAccount.key, 0);
+    //   web3.eth.personal.unlockAccount(mainAccount.address, mainAccount.key, 0);
     }
     return mainAccount;
   }

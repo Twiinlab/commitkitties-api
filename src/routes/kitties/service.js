@@ -38,6 +38,7 @@ export const getKittyByUserAddress = async(userAddrs) => {
 
 export const addKitty = async (kitty) => {
     if (!kitty) throw new Error('Body is blank');
+    console.log('kitty.id ', kitty.id)
     await db.collection("kitties").doc(kitty.id).set(kitty);
     return {
         id: kitty.id,
