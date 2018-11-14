@@ -55,10 +55,10 @@ async function watchAllEvents( contract ) {
               let kitty;
               switch (log.event) {
                 case 'Transfer':
-                  //log.returnValues="from":"0x4AAa4E3ce8E9d8A6533B75db54da017E2Cf811c8","to":"0x2B7ec3747C6d4EBfd79512Ac2ad32C189aFe911c","tokenId":"12"
-                  kitty = await kittyService.getKittyById(log.returnValues.tokenId);
-                  kitty.data.owner = { address: log.returnValues.to };
-                  await kittyService.updateKitty(kitty.id, kitty.data);
+                  //log.returnValues="from":" ,"to":"0x2B7ec3747C6d4EBfd79512Ac2ad32C189aFe911c","tokenId":"12"
+                  // kitty = await kittyService.getKittyById(log.returnValues.tokenId);
+                  // kitty.data.owner = { address: log.returnValues.to };
+                  // await kittyService.updateKitty(kitty.id, kitty.data);
                   break;
                 case 'AuctionCreated':
                   //log.returnValues="tokenId":"12","startingPrice":"200","endingPrice":"200","duration":"200"
