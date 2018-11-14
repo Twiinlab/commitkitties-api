@@ -30,12 +30,12 @@ export const addUser = async (newUser) => {
     let currentUser = await db.collection('users').doc(newUser.id).get();
     let userData = {}
     if (!currentUser.data() || !currentUser.data().wallet) {
-        userData = currentUser.data ? currentUser.data() : {};
+        userData = currentUser.data() || {};
         const { address, privateKey } = contracts.createAccount();
         userData.wallet = { address, privateKey };
         await db.collection('users').doc(newUser.id).set(userData);
 
-        await contracts.fillAccount(address);kitty
+        await contracts.fillAccount(address);
         console.log(`transfer gas to ${address}`);
     }
     return userData;

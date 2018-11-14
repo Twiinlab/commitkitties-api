@@ -64,6 +64,7 @@ async function watchAllEvents( contract ) {
                   //log.returnValues="tokenId":"12","startingPrice":"200","endingPrice":"200","duration":"200"
                   kitty = await kittyService.getKittyById(log.returnValues.tokenId);
                   kitty.data.auction = { price: parseInt(log.returnValues.startingPrice) };
+                  console.log(`AuctionCreated update auction: ${JSON.stringify(kitty.data.auction)}`);
                   await kittyService.updateKitty(kitty.id, kitty.data);
                   break;
                 case 'AuctionSuccessful':
@@ -72,12 +73,14 @@ async function watchAllEvents( contract ) {
                   kitty.data.value = parseInt(kitty.data.auction.price);
                   kitty.data.auction = { };
                   kitty.data.owner = { address: log.returnValues.winner };
+                  console.log(`AuctionSuccessful update owner: ${JSON.stringify(kitty.data.owner)}`);
                   await kittyService.updateKitty(kitty.id, kitty.data);
                   break;
                 case 'AuctionCancelled':
                   //log.returnValues="tokenId":"13",
                   kitty = await kittyService.getKittyById(log.returnValues.tokenId);
                   kitty.data.auction = { };
+                  console.log(`AuctionCancelled update auction: ${JSON.stringify(kitty.data.auction)}`);
                   await kittyService.updateKitty(kitty.id, kitty.data);
                   break;
                 default:

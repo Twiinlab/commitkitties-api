@@ -32,11 +32,12 @@ export const getBlockByTransactionHash = async(transactionHash) => {
 
 export const getBlockByUserId = async(userId) => {
 
-  let user = (await userService.getUserById(userId)).data;
+  let user = await userService.getUserById(userId);
 
-  if (!user.wallet || !user.wallet.address) {
-    throw new Error('User does not have wallet yet');
+  if (!user || !user.data || !user.data.wallet || !user.data.wallet.address) {
+    return [];
   }
+
   const coll = await getCollection();
   return  coll.aggregate(
     [ 
@@ -48,7 +49,7 @@ export const getBlockByUserId = async(userId) => {
                     { type: "AuctionCancelled" } 
                   ] 
                 },
-                { $or: [ { "tx.from": user.wallet.address } ] }
+                { $or: [ { "tx.from": user.data.wallet.address } ] }
                ]
        }
       }
@@ -57,19 +58,23 @@ export const getBlockByUserId = async(userId) => {
 
 export const getTotalBlockNumbersByUserId = async (userId) => {
 
-  let user = (await userService.getUserById(userId)).data;
+  let user = await userService.getUserById(userId);
+
+  if (!user || !user.data || !user.data.wallet || !user.data.wallet.address) {
+    return [];
+  }
 
   const coll = await getCollection();
 
-    return coll.aggregate(
-      [ { $match: { "tx.from": user.wallet.address } },
-      { $group: {
-        _id: "$type",
-        totalGasUsed: { $sum : "$tx.gas" },
-        avgGasPrice: { $last : "$tx.gasPrice" },
-        count: { $sum : 1 }
-      }
-    }]).toArray();
+  return coll.aggregate(
+    [ { $match: { "tx.from": user.data.wallet.address } },
+    { $group: {
+      _id: "$type",
+      totalGasUsed: { $sum : "$tx.gas" },
+      avgGasPrice: { $last : "$tx.gasPrice" },
+      count: { $sum : 1 }
+    }
+  }]).toArray();
 };
 
 export const addBlock = async (data) => {
