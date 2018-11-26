@@ -11,9 +11,30 @@ import { db } from './firebase';
 
 let mainAccount;
 
-// console.log('config ',JSON.stringify(config));
-// web3 = new Web3(new Web3.providers.WebsocketProvider(`ws://localhost:8545`));
-let web3 = new Web3(new Web3.providers.WebsocketProvider(config.network.ws));
+
+export const getProvider = () => {
+  const provider = new Web3.providers.WebsocketProvider(config.network.ws)
+  provider.on('connect', () => console.log('WS Connected'))
+  provider.on('error', e => {
+    console.error('WS Error', e)
+    web3.setProvider(getProvider())
+  })
+  provider.on('end', e => {
+    console.error('WS End', e)
+    web3.setProvider(getProvider())
+  })
+
+  return provider
+}
+
+
+export const getConnection = function() { 
+    return new Web3(getProvider());
+}
+
+let web3 = new Web3(getProvider())
+
+// let web3 = new Web3(new Web3.providers.WebsocketProvider(config.network.ws));
 let web3Http = new Web3(new Web3.providers.HttpProvider(config.network.http));
 
 
@@ -39,9 +60,15 @@ export const getContract = async (contractName) => {
     return new web3.eth.Contract(metaContract.data().abi, metaContract.data().address);
 }
 
+export const getTransaction = async function(transactionHash) {
+  return web3.eth.getTransaction(transactionHash);
+}
+
+
 export const createAccount = function() {
     return web3.eth.accounts.create();
 }
+
 
 export const getBalance = async (address) => {
     return web3.eth.getBalance(address)

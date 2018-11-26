@@ -47,8 +47,8 @@ const custom = {
       messagingSenderId: "908015484677"
     },
     network:{
-      http: "http://35.196.98.185:8545",
-      ws: "ws://35.196.98.185:8545",
+      http: "http://35.243.198.50:8545", //"http://35.196.98.185:8545", //
+      ws: "ws://35.243.198.50:8545",
       account: {
         address: "0x4aaa4e3ce8e9d8a6533b75db54da017e2cf811c8",
         key: "0xbb73e8a2733d614b215c1a651dd3884cabf1149a6dc847f1b6ce20c9d2f682ce"
